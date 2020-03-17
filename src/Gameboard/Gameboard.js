@@ -1,6 +1,35 @@
 const Gameboard = () => {
+  // Need to implement array in gameboard representing empty coordinates
+  const createGrid = () => {
+    const grid = [];
+
+    for (let i = 0; i < 10; i++) {
+      grid.push(["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]);
+    }
+
+    return grid;
+  };
+
+  const allCoordinates = createGrid();
+  const coordinatesYetToBeAttacked = JSON.parse(JSON.stringify(allCoordinates));
   const ships = [];
   const missedAttacks = [];
+
+  const updateCoordinatesYetToBeAttacked = (x, y) => {
+    for (let i = 0; i < coordinatesYetToBeAttacked.length; i++) {
+      for (let j = 0; j < coordinatesYetToBeAttacked[i].length; j++) {
+        if (coordinatesYetToBeAttacked[i][j] === x && i + 1 === y) {
+          coordinatesYetToBeAttacked[i].splice(j, 1);
+          break;
+        }
+      }
+
+      if (coordinatesYetToBeAttacked[i].length === 0) {
+        coordinatesYetToBeAttacked[i] = undefined;
+        break;
+      }
+    }
+  };
 
   const placeShip = ship => {
     ships.push(ship);
@@ -12,6 +41,7 @@ const Gameboard = () => {
     } else {
       missedAttacks.push({ x: x, y: y });
     }
+    updateCoordinatesYetToBeAttacked(x, y);
   };
 
   // determines whether or not the attack hit a ship and then sends the ‘hit’ function to the correct ship
@@ -56,7 +86,9 @@ const Gameboard = () => {
     missedAttacks,
     checkHit,
     hitShip,
-    shipsSunk
+    shipsSunk,
+    coordinatesYetToBeAttacked,
+    updateCoordinatesYetToBeAttacked
   };
 };
 

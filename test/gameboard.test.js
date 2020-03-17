@@ -50,3 +50,40 @@ it("shipsSunk returns true if all ships are sunk", () => {
 
   expect(testGameboard.shipsSunk()).toBe(true);
 });
+
+it("updateCoordinatesYetToBeAttacked remove coordinates taken as a arguments", () => {
+  const testGameboard = Gameboard();
+  const testShip = Ship(2, { x: "A", y: 1 }, "horizontal");
+  testGameboard.placeShip(testShip);
+  testGameboard.updateCoordinatesYetToBeAttacked("B", 2);
+
+  expect(testGameboard.coordinatesYetToBeAttacked[1]).toEqual([
+    "A",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G",
+    "H",
+    "I",
+    "J"
+  ]);
+});
+
+it("updateCoordinatesYetToBeAttacked remove element if element array is empty", () => {
+  const testGameboard = Gameboard();
+  const testShip = Ship(2, { x: "A", y: 1 }, "horizontal");
+  testGameboard.placeShip(testShip);
+  testGameboard.updateCoordinatesYetToBeAttacked("A", 2);
+  testGameboard.updateCoordinatesYetToBeAttacked("B", 2);
+  testGameboard.updateCoordinatesYetToBeAttacked("C", 2);
+  testGameboard.updateCoordinatesYetToBeAttacked("D", 2);
+  testGameboard.updateCoordinatesYetToBeAttacked("E", 2);
+  testGameboard.updateCoordinatesYetToBeAttacked("F", 2);
+  testGameboard.updateCoordinatesYetToBeAttacked("G", 2);
+  testGameboard.updateCoordinatesYetToBeAttacked("H", 2);
+  testGameboard.updateCoordinatesYetToBeAttacked("I", 2);
+  testGameboard.updateCoordinatesYetToBeAttacked("J", 2);
+
+  expect(testGameboard.coordinatesYetToBeAttacked[1]).toBe(undefined);
+});
