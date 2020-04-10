@@ -1,18 +1,3 @@
-body {
-  background-color: red;
-  margin: 0;
-}
-
-.diffBack {
-  background-color: blue;
-}
-
-.boardContainer {
-  display: flex;
-  justify-content: space-around;
-  background-color: palegreen;
-}
-
 .tile {
   border: 1px solid black;
   width: 40px;
@@ -35,4 +20,5 @@ body {
 
 .column {
   display: inline-block;
+
 }

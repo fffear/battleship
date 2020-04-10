@@ -2,32 +2,42 @@ import ComputerPlayer from "../src/Player/ComputerPlayer";
 import Gameboard from "../src/Gameboard/Gameboard";
 import Ship from "../src/Ship/Ship";
 
-// it("computer player selects random coordinates", () => {
-//   const testGameboard = Gameboard();
-//   const testComputerPlayer = ComputerPlayer();
-//   const testShip = Ship(2, { x: "A", y: 1 }, "horizontal");
-//   testGameboard.placeShip(testShip);
+it("getXCoordinates() returns all yCoordinates in an array", () => {
+  const testGameboard = Gameboard();
+  const testComputerPlayer = ComputerPlayer();
+  const testShip = Ship(2);
+  expect(
+    testComputerPlayer.getXCoordinates(testGameboard.allCoordinates)
+  ).toEqual(["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]);
+});
 
-//   const randomCoordinates = testComputerPlayer.selectRandomCoordinates();
-
-//   expect(randomCoordinates.y).toBeGreaterThanOrEqual(1);
-//   expect(randomCoordinates.y).toBeLessThanOrEqual(10);
-//   expect(randomCoordinates.x).toMatch(/[ABCDEFGHIJ]/);
-// });
+it("getIndexesOfY() returns all the indexes of xCoordinates in an array", () => {
+  const testGameboard = Gameboard();
+  const testComputerPlayer = ComputerPlayer();
+  const testShip = Ship(2);
+  testGameboard.placeShip(testShip, { x: "A", y: 1 }, "horizontal");
+  testGameboard.receiveAttack("A", 1);
+  expect(
+    testComputerPlayer.getIndexesOfY(testGameboard.allCoordinates, "A")
+  ).toEqual([2, 3, 4, 5, 6, 7, 8, 9, 10]);
+});
 
 it("computer player should know whether a move is legal (i.e. it shouldn’t shoot the same coordinate twice)", () => {
   const testGameboard = Gameboard();
   const testComputerPlayer = ComputerPlayer();
-  const testShip = Ship(2, { x: "A", y: 1 }, "horizontal");
-  testGameboard.placeShip(testShip);
+  const testShip = Ship(2);
+  testGameboard.placeShip(testShip, { x: "A", y: 1 }, "horizontal");
 
   testComputerPlayer.attack(testGameboard, { x: "A", y: 2 });
 
   const testObject = testComputerPlayer.selectRandomCoordinatesStillAvailable(
-    testGameboard.coordinatesYetToBeAttacked
+    testGameboard.allCoordinates,
+    "A"
   );
 
-  if (testObject.y === 2) {
-    expect(testObject.x).toMatch(/[BCDEFGHIJ]/);
-  }
+  expect(
+    testComputerPlayer.getIndexesOfY(testGameboard.allCoordinates, "A")
+  ).toEqual([1, 3, 4, 5, 6, 7, 8, 9, 10]);
+
+  // expect(testObject.y).not.toBe(1);
 });
