@@ -1,4 +1,4 @@
-const player = () => {
+const Player = () => {
   const attack = (gameboard, coordinates) => {
     gameboard.receiveAttack(coordinates.x, coordinates.y);
   };
@@ -6,4 +6,4 @@ const player = () => {
   return { attack };
 };
 
-export default player;
+export { Player };

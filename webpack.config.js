@@ -1,9 +1,11 @@
+const path = require("path");
+
 module.exports = {
   mode: "development",
   entry: "./src/index.js",
   output: {
     filename: "main.js",
-    publicPath: "dist"
+    path: path.resolve(__dirname, "dist"),
   },
   module: {
     rules: [
@@ -13,9 +15,9 @@ module.exports = {
         use: {
           loader: "babel-loader",
           options: {
-            presets: ["@babel/preset-env"]
-          }
-        }
+            presets: ["@babel/preset-env"],
+          },
+        },
       },
       {
         test: /\.css$/i,
@@ -25,11 +27,11 @@ module.exports = {
             loader: "css-loader",
             options: {
               importLoaders: 1,
-              modules: true
-            }
-          }
-        ]
-      }
-    ]
-  }
+              modules: true,
+            },
+          },
+        ],
+      },
+    ],
+  },
 };

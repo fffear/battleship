@@ -1,15 +1,15 @@
-import Player from "./Player";
+import { Player } from "./Player";
 
 const ComputerPlayer = () => {
   const prototype = Player();
 
   const yColumnNotEmpty = (coordinatesStillAvailable, xCoordinate) => {
-    return coordinatesStillAvailable[xCoordinate].some(yCoordinate => {
+    return coordinatesStillAvailable[xCoordinate].some((yCoordinate) => {
       return yCoordinate === " ";
     });
   };
 
-  const getXCoordinates = coordinatesStillAvailable => {
+  const getXCoordinates = (coordinatesStillAvailable) => {
     let arrayOfXCoordinates = [];
     for (let xCoordinate in coordinatesStillAvailable) {
       if (yColumnNotEmpty(coordinatesStillAvailable, xCoordinate)) {
@@ -18,13 +18,6 @@ const ComputerPlayer = () => {
     }
 
     return arrayOfXCoordinates;
-
-    // return coordinatesStillAvailable.reduce((array, value, index) => {
-    //   if (value !== undefined) {
-    //     array.push(index);
-    //   }
-    //   return array;
-    // }, []);
   };
 
   const getIndexesOfY = (coordinatesStillAvailable, xCoordinate) => {
@@ -44,10 +37,6 @@ const ComputerPlayer = () => {
     coordinatesStillAvailable,
     xCoordinate
   ) => {
-    // const xCoordinates = getXCoordinates(coordinatesStillAvailable);
-    // const randomXCoordinate =
-    //   xCoordinates[Math.floor(Math.random() * xCoordinates.length)];
-
     const yCoordinates = getIndexesOfY(coordinatesStillAvailable, xCoordinate);
     let yCoordinate =
       yCoordinates[Math.floor(Math.random() * yCoordinates.length)];
@@ -58,8 +47,8 @@ const ComputerPlayer = () => {
   return Object.assign({}, prototype, {
     selectRandomCoordinatesStillAvailable,
     getXCoordinates,
-    getIndexesOfY
+    getIndexesOfY,
   });
 };
 
-export default ComputerPlayer;
+export { ComputerPlayer };

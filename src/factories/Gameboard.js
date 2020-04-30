@@ -4,7 +4,7 @@ const Gameboard = () => {
 
     for (let i = 0; i < 10; i++) {
       let xCoordinate = String.fromCharCode(65 + i);
-      grid[xCoordinate] = [...Array(10)].map(x => " ");
+      grid[xCoordinate] = [...Array(10)].map((x) => " ");
     }
 
     return grid;
@@ -12,6 +12,11 @@ const Gameboard = () => {
 
   const allCoordinates = createGrid();
   const ships = [];
+
+  // function to check to see if coordinates have been taken by any other ship
+  // UIGameSetup
+  // Game
+  // Gameboard
 
   const placeShip = (ship, coordinates, orientation) => {
     const shipLength = ship.positionsHit.length;
@@ -27,7 +32,7 @@ const Gameboard = () => {
       for (let i = 0; i < shipLength; i++) {
         ship.positions.push({
           x: coordinates.x,
-          y: coordinates.y + i
+          y: coordinates.y + i,
         });
       }
     }
@@ -39,13 +44,13 @@ const Gameboard = () => {
       allCoordinates[x][y - 1] = "X";
       hitShip(x, y);
     } else {
-      allCoordinates[x][y - 1] = "M";
+      allCoordinates[x][y - 1] = "\u2022";
     }
   };
 
   const checkHit = (x, y) => {
-    return ships.some(ship => {
-      return ship.positions.some(coordinates => {
+    return ships.some((ship) => {
+      return ship.positions.some((coordinates) => {
         return coordinates.x === x && coordinates.y === y;
       });
     });
@@ -64,25 +69,18 @@ const Gameboard = () => {
   const allShipsSunk = () => {
     if (ships.length === 0) return false;
 
-    return ships.every(ship => {
+    return ships.every((ship) => {
       return ship.isSunk();
     });
   };
-
-  // 1. place ships at specific coordinates by calling the ship factory function
-  // 2. receiveAttack function that takes a pair of coordinates, determines whether or
-  //    not the attack hit a ship and then sends the ‘hit’ function to the correct ship,
-  //    or records the coordinates of the missed shot.
-  // 3. Gameboards should keep track of missed attacks so they can display them properly.
-  // 4. Gameboards should be able to report whether or not all of their ships have been sunk.
 
   return {
     allCoordinates,
     placeShip,
     ships,
     receiveAttack,
-    allShipsSunk
+    allShipsSunk,
   };
 };
 
-export default Gameboard;
+export { Gameboard };
