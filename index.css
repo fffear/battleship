@@ -1,0 +1,177 @@
+body {
+  background-color: red;
+  margin: 0;
+}
+
+button {
+  background-color: rgb(107, 107, 255);
+  font-size: 2rem;
+  padding: 0.5rem 1rem;
+  color: black;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: rgb(48, 48, 253);
+  color: white;
+}
+
+#root {
+  position: relative;
+}
+
+.btnContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.diffBack {
+  background-color: blue;
+}
+
+.fleet {
+  border: 1px solid black;
+  background-color: blue;
+  width: 350px;
+  margin-right: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+}
+
+.setupContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.listOfFleet {
+  list-style-type: none;
+  margin-top: 0;
+  padding: 0 1rem;
+}
+
+.shipItem {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+}
+
+.ship {
+  display: flex;
+  cursor: pointer;
+}
+
+.shipPlaced {
+  background-color: rgba(255, 255, 255, 0.5);
+  cursor: initial;
+}
+
+.square {
+  border: 1px solid black;
+  width: 40px;
+  height: 40px;
+}
+
+[id$="-copy"] {
+  border: 1px solid white;
+  position: absolute;
+}
+
+[id$="-copy"] .square {
+  border: 1px solid transparent;
+  width: 39.5px;
+  height: 39.5px;
+  /* height: 100%; */
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.unselectedShipCopy {
+  z-index: 1;
+}
+
+.selectedShipCopy {
+  z-index: -1;
+}
+
+.boardContainer {
+  display: flex;
+  justify-content: center;
+  background-color: palegreen;
+}
+
+.tile {
+  text-align: center;
+  line-height: 40px;
+  align-items: center;
+  border: 1px solid black;
+  width: 40px;
+  height: 40px;
+  position: relative;
+  font-weight: 900;
+}
+
+.headerTile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid transparent;
+  width: 40px;
+  height: 40px;
+}
+
+.board {
+  display: flex;
+  padding: 2rem;
+}
+
+.column {
+  display: inline-block;
+}
+
+.verticalShip {
+  flex-direction: column;
+  position: absolute;
+}
+
+.verticalShip .square {
+  border: 1px solid transparent;
+  width: 40px;
+  height: 39.5px;
+}
+
+.victoryMessage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3rem;
+  border: 2px solid white;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+  padding: 5px;
+}
+
+/* .computerBoard .tile {
+  cursor: pointer;
+}
+
+.computerBoard .tile:hover {
+  background-color: teal;
+
+} */
+
+.interactableBoard .tile {
+  cursor: pointer;
+}
+
+.interactableBoard .tile:hover {
+  background-color: teal;
+}
+
+.nonInteractableBoard .tile {
+  background-color: rgb(185, 185, 185);
+}
