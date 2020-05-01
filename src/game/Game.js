@@ -26,11 +26,6 @@ const Game = (() => {
     destroyer: Ship(2),
   };
 
-  // place ships on computer gameboard randomly
-  // UIGameSetup
-  // Game
-  // Gameboard
-
   const startNewGame = () => {
     _computerGameboard = Gameboard();
     _humanGameboard = Gameboard();

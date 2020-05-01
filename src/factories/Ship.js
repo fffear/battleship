@@ -1,5 +1,6 @@
 const Ship = (length) => {
   const positions = [];
+  const _length = length;
 
   const positionsHit = Array.apply(null, { length: length });
 
@@ -17,7 +18,16 @@ const Ship = (length) => {
     return !positionsHit.some(checkHit);
   };
 
-  return { positions, hit, isSunk, positionsHit };
+  return {
+    positions,
+    hit,
+    isSunk,
+    positionsHit,
+
+    get length() {
+      return _length;
+    },
+  };
 };
 
 export { Ship };

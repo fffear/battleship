@@ -11,8 +11,6 @@ const GameController = ((game) => {
 
     let tile = squareData.tile;
     let coordinates = { x: squareData.x, y: squareData.y };
-    // console.log("From human Player Turn:");
-    // console.log(squareData);
 
     Events.emit("updateTile", {
       tile: tile,
@@ -35,8 +33,8 @@ const GameController = ((game) => {
       game.humanGameboard.allCoordinates,
       randomXCoordinate
     );
-    console.log("From computer Player Turn:");
-    console.log(randomCoordinates);
+    // console.log("From computer Player Turn:");
+    // console.log(randomCoordinates);
 
     game.computerPlayer.attack(game.humanGameboard, randomCoordinates);
 
@@ -58,6 +56,9 @@ const GameController = ((game) => {
       resolve();
     })
       .then(() => {
+        if (game.gameOver()) reject();
+      })
+      .then(() => {
         return new Promise((resolve, reject) => {
           setTimeout(() => {
             computerPlayerTurn();
@@ -69,16 +70,15 @@ const GameController = ((game) => {
         });
       })
       .then(() => {
-        if (game.gameOver()) {
-          Events.emit("removeListenerToClickComputerBoard", computerBoard);
+        if (game.gameOver()) reject();
+      })
+      .catch(() => {
+        Events.emit("removeListenerToClickComputerBoard", computerBoard);
 
-          if (game.gameWinner() === "human") {
-            console.log("You win!");
-            Events.emit("displayVictoryMessage", "You win!");
-          } else if (game.gameWinner() === "computer") {
-            console.log("You lose!");
-            Events.emit("displayVictoryMessage", "You lose!");
-          }
+        if (game.gameWinner() === "human") {
+          Events.emit("displayVictoryMessage", "You win!");
+        } else if (game.gameWinner() === "computer") {
+          Events.emit("displayVictoryMessage", "You lose!");
         }
       });
   };

@@ -13,11 +13,6 @@ const Gameboard = () => {
   const allCoordinates = createGrid();
   const ships = [];
 
-  // function to check to see if coordinates have been taken by any other ship
-  // UIGameSetup
-  // Game
-  // Gameboard
-
   const placeShip = (ship, coordinates, orientation) => {
     const shipLength = ship.positionsHit.length;
     if (
@@ -77,6 +72,7 @@ const Gameboard = () => {
   return {
     allCoordinates,
     placeShip,
+    checkHit,
     ships,
     receiveAttack,
     allShipsSunk,

@@ -4,7 +4,6 @@ import UIBoardUtil from "../UI/UIBoardUtil";
 
 const GameDisplay = ((game) => {
   let currentGame = game;
-  console.log("game Display");
   const rootDiv = document.querySelector("#root");
   const btnContainer = document.querySelector(".btnContainer");
   let humanPlayerBoard;
@@ -102,17 +101,10 @@ const GameDisplay = ((game) => {
       ];
   };
 
-  // I need to implement the victory message display
   const displayVictoryMessage = (msg) => {
     const victoryMessageDiv = document.createElement("div");
     victoryMessageDiv.classList.add("victoryMessage");
     victoryMessageDiv.textContent = msg;
-
-    // if (player === "human") {
-    //   victoryMessageDiv.textContent = msg;
-    // } else if (player === "computer") {
-    //   victoryMessageDiv.textContent = "You lose!";
-    // }
 
     let boardContainer = document.querySelector(".boardContainer");
     boardContainer.appendChild(victoryMessageDiv);

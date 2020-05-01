@@ -3,6 +3,7 @@ import Game from "../game/Game";
 import GameDisplay from "../gameDisplay/GameDisplay";
 import UIMoveShip from "./UIMoveShip";
 import UIBoardUtil from "./UIBoardUtil";
+import RandomShipPlacement from "../randomShipPlacement/randomShipPlacement";
 
 const UIGameSetup = ((game) => {
   const rootDiv = document.querySelector("#root");
@@ -28,7 +29,6 @@ const UIGameSetup = ((game) => {
     return btn;
   };
 
-  // function to create setup container
   const createSetupContainer = () => {
     let setupContainer = document.createElement("div");
     setupContainer.classList.add("setupContainer");
@@ -117,6 +117,15 @@ const UIGameSetup = ((game) => {
     container.appendChild(board);
   };
 
+  const placeShipsRandomlyOnComputerBoard = () => {
+    for (let ship in game.computerFleet) {
+      RandomShipPlacement.placeShipOnBoardIfCoordinatesAvailable(
+        game.computerGameboard,
+        game.computerFleet[ship]
+      );
+    }
+  };
+
   const removeGamePlayListeners = (event) => {
     let computerBoard = document.querySelectorAll(".board")[0];
     Events.emit("removeListenerToClickComputerBoard", computerBoard);
@@ -132,7 +141,6 @@ const UIGameSetup = ((game) => {
     resetBtn.removeEventListener("click", removeGamePlayListeners);
   };
 
-  // This is what I'm working on
   const removeSetupListeners = (event) => {
     let shipCopies = document.querySelectorAll('[id$="-copy"]');
     shipCopies = Array.from(shipCopies);
@@ -171,12 +179,7 @@ const UIGameSetup = ((game) => {
         );
       }
 
-      // place ships on computer gameboard randomly
-      // UIGameSetup
-      // Game
-      // Gameboard
-
-      // i can select a random coordinate from computer player from coordinates still available
+      placeShipsRandomlyOnComputerBoard();
 
       removeSetupContainer();
       GameDisplay.renderGameboards(game);
@@ -214,8 +217,6 @@ const UIGameSetup = ((game) => {
 
     startBtn.addEventListener("click", removeSetupListeners);
   };
-
-  // I need to place ships on computer board randomly without overlapping
 
   let playBtn = createBtn("play");
   playBtn.addEventListener("click", removePlayAndSetupShips);

@@ -2,8 +2,6 @@ import Events from "../EventPubSub/EventPubSub";
 import UIBoardUtil from "../UI/UIBoardUtil";
 
 const UIGameInteraction = (() => {
-  console.log("UI Game Interaction");
-
   const initiateGameTurn = (event) => {
     let tile = event.target;
     let selectedCoordinates = UIBoardUtil.getStartingCoordinates(tile);
@@ -36,8 +34,6 @@ const UIGameInteraction = (() => {
     "removeListenerToClickComputerBoard",
     removeClickListenerOnComputerBoard
   );
-
-  // let playerGameboard = document.querySelector(`.${GameDisplayStyles.board}`);
 })();
 
 export default UIGameInteraction;

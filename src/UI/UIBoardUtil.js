@@ -132,14 +132,8 @@ const UIBoardUtil = (() => {
       startingCoordinates
     );
 
-    // There is a problem with shipPlacedOnOccupiedSquares
-    // I need to take into account if the ship overrides the board
-
-    //console.log(coordinates);
-
     for (let i = 0; i < shipLength; i++) {
       let square = findTile(board, coordinates[i]);
-      // console.log(square);
       if (square.classList.contains("occupied")) {
         return true;
       }
@@ -204,7 +198,6 @@ const UIBoardUtil = (() => {
       let tile = event.target;
       let board = tile.parentElement.parentElement;
       let startingCoordinates = getStartingCoordinates(tile);
-      // console.log(startingCoordinates);
 
       if (
         startingCoordinates.x === "" ||
