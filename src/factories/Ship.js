@@ -18,10 +18,17 @@ const Ship = (length) => {
     return !positionsHit.some(checkHit);
   };
 
+  const isAttackedButNotSunk = () => {
+    return positionsHit.some((position) => {
+      return position == "X";
+    });
+  };
+
   return {
     positions,
     hit,
     isSunk,
+    isAttackedButNotSunk,
     positionsHit,
 
     get length() {

@@ -37,10 +37,9 @@ it("isSunk() returns true if all positions are hit", () => {
   expect(testShip.isSunk()).toBe(true);
 });
 
-// function sum(a, b) {
-//   return a + b;
-// }
-
-// test("adds 1 + 2 to equal 3", () => {
-//   expect(sum(1, 2)).toBe(3);
+// it("isAttackedButNotSunk() returns true if 1 position is hit", () => {
+//   const testShip = Ship(4);
+//   expect(testShip.isAttackedButNotSunk()).toBe(false);
+//   testShip.hit(0);
+//   expect(testShip.isAttackedButNotSunk()).toBe(true);
 // });

@@ -37,7 +37,15 @@ it("computer player should know whether a move is legal (i.e. it shouldn’t sho
     "A"
   );
 
-  expect(
-    testComputerPlayer.getIndexesOfY(testGameboard.allCoordinates, "A")
-  ).toEqual([1, 3, 4, 5, 6, 7, 8, 9, 10]);
+  // console.log(testObject);
+
+  // expect(
+  //   testComputerPlayer.getIndexesOfY(testGameboard.allCoordinates, "A")
+  // ).toEqual([1, 3, 4, 5, 6, 7, 8, 9, 10]);
+
+  // expect(
+  //   testComputerPlayer.getIndexesOfY(testGameboard.allCoordinates, "A")
+  // ).not.toContain(2);
+
+  expect(testObject.y).not.toBe(2);
 });

@@ -110,9 +110,21 @@ const GameDisplay = ((game) => {
     boardContainer.appendChild(victoryMessageDiv);
   };
 
+  const displayShipSunk = (data) => {
+    let { ship, board } = data;
+
+    if (ship.isSunk()) {
+      for (let coordinate of ship.positions) {
+        let sunkTile = UIBoardUtil.findTile(board, coordinate);
+        sunkTile.classList.add("isSunk");
+      }
+    }
+  };
+
   Events.on("updateTile", renderUpdatedTile);
   Events.on("displayVictoryMessage", displayVictoryMessage);
   Events.on("toggleIndicatePlayerTurn", toggleInteractableBoard);
+  Events.on("displayShipSunk", displayShipSunk);
 
   return {
     createBoard,

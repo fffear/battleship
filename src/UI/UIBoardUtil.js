@@ -188,7 +188,6 @@ const UIBoardUtil = (() => {
   };
 
   const dropShip = (event, data, ship) => {
-    console.log("drop original ship");
     let shipLength = ship.childElementCount;
     let orientation = ship.classList.contains("verticalShip")
       ? "vertical"
@@ -211,7 +210,6 @@ const UIBoardUtil = (() => {
           startingCoordinates
         )
       ) {
-        console.log("Do nothing");
       } else {
         let startingCoordinates = getStartingCoordinates(tile);
 
@@ -225,30 +223,12 @@ const UIBoardUtil = (() => {
           event.target.appendChild(nodeCopy);
 
           ship.classList.add("shipPlaced");
-          // console.log(ship);
 
           Events.emit("addDragToShipCopy", nodeCopy);
           Events.emit("addClickToChangeOrientation", nodeCopy);
         }
       }
     }
-    // else if (data.slice(-5) === "-copy") {
-    // let tile = event.target;
-    // let startingCoordinates = getStartingCoordinates(tile);
-    // if (
-    //   orientation === "horizontal" &&
-    //   !shipOverflowHorizontally(startingCoordinates["x"], shipLength)
-    // ) {
-    //   ship.classList.remove("selectedShipCopy");
-    //   ship.classList.add("unselectedShipCopy");
-    // } else if (
-    //   orientation === "vertical" &&
-    //   !shipOverflowVertically(startingCoordinates["y"], shipLength)
-    // ) {
-    //   ship.classList.remove("selectedShipCopy");
-    //   ship.classList.add("unselectedShipCopy");
-    // }
-    //}
   };
 
   const moveShipCopy = (event, data, shipCopy) => {

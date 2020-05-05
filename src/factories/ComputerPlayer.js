@@ -44,10 +44,30 @@ const ComputerPlayer = () => {
     return { x: xCoordinate, y: yCoordinate };
   };
 
+  const getRandomCoordinateStillAvailable = (coordinatesStillAvailable) => {
+    let xCoordinates = getXCoordinates(coordinatesStillAvailable);
+
+    const randomXCoordinate =
+      xCoordinates[Math.floor(Math.random() * xCoordinates.length)];
+
+    let randomCoordinates = selectRandomCoordinatesStillAvailable(
+      coordinatesStillAvailable,
+      randomXCoordinate
+    );
+
+    return randomCoordinates;
+  };
+
+  const test = () => {
+    return 100;
+  };
+
   return Object.assign({}, prototype, {
-    selectRandomCoordinatesStillAvailable,
     getXCoordinates,
     getIndexesOfY,
+    selectRandomCoordinatesStillAvailable,
+    getRandomCoordinateStillAvailable,
+    test,
   });
 };
 

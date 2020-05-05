@@ -8,7 +8,6 @@ import RandomShipPlacement from "../randomShipPlacement/randomShipPlacement";
 const UIGameSetup = ((game) => {
   const rootDiv = document.querySelector("#root");
   const btnContainer = document.querySelector(".btnContainer");
-  console.log("UI Game Setup");
 
   const createBtn = (btnName) => {
     const btn = document.createElement("button");
@@ -16,8 +15,6 @@ const UIGameSetup = ((game) => {
     btn.textContent = btnName.replace(/^\w/, (c) => c.toUpperCase());
 
     btnContainer.appendChild(btn);
-
-    // rootDiv.appendChild(btnContainer);
 
     return btn;
   };
@@ -99,11 +96,11 @@ const UIGameSetup = ((game) => {
         let individualGrid = document.createElement("div");
 
         individualGrid.classList.add(styles.tile);
-        //
+
         individualGrid.addEventListener("dragover", MoveShip.allowDrop);
         individualGrid.addEventListener("drop", MoveShip.drop);
         individualGrid.addEventListener("dragend", MoveShip.dragend);
-        //
+
         individualGrid.textContent = gridContent;
         individualColumn.appendChild(individualGrid);
         boardDiv.appendChild(individualColumn);
@@ -136,7 +133,6 @@ const UIGameSetup = ((game) => {
     let playBtn = createBtn("play");
     playBtn.addEventListener("click", removePlayAndSetupShips);
 
-    // remove
     let resetBtn = removeBtn("reset");
     resetBtn.removeEventListener("click", removeGamePlayListeners);
   };
@@ -144,7 +140,6 @@ const UIGameSetup = ((game) => {
   const removeSetupListeners = (event) => {
     let shipCopies = document.querySelectorAll('[id$="-copy"]');
     shipCopies = Array.from(shipCopies);
-    console.log("Remove Setup Listeners");
 
     if (shipCopies.length === 5) {
       for (let ship of shipCopies) {
@@ -165,8 +160,6 @@ const UIGameSetup = ((game) => {
 
       let resetBtn = createBtn("reset");
       resetBtn.addEventListener("click", removeGamePlayListeners);
-
-      console.log("get ship coordinates and details");
 
       for (let ship of shipCopies) {
         let startingTile = ship.parentNode;
@@ -200,6 +193,7 @@ const UIGameSetup = ((game) => {
     let ships = document.querySelectorAll(".ship");
 
     game.startNewGame();
+    Events.emit("resetIntelligentChoiceData");
 
     let humanBoard = GameDisplay.createBoard(
       game.humanGameboard.allCoordinates

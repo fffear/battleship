@@ -1,9 +1,22 @@
 import Events from "../EventPubSub/EventPubSub";
 import Game from "../game/Game";
+import UIBoardUtil from "../UI/UIBoardUtil";
+import IntelligentChoiceGenerator from "../IntelligentChoiceGenerator/IntelligentChoiceGenerator";
 
 const GameController = ((game) => {
   const startNewGame = () => {
     game.startNewGame();
+  };
+
+  const checkAndDisplaySunkShips = (data) => {
+    let { fleet, board } = data;
+
+    for (let ship in fleet) {
+      Events.emit("displayShipSunk", {
+        ship: fleet[ship],
+        board: board,
+      });
+    }
   };
 
   const humanPlayerTurn = (squareData) => {
@@ -18,29 +31,61 @@ const GameController = ((game) => {
       coordinates: coordinates,
     });
 
+    checkAndDisplaySunkShips({
+      fleet: game.computerFleet,
+      board: document.querySelector(".computerBoard"),
+    });
+
     return;
   };
 
   const computerPlayerTurn = () => {
-    let xCoordinates = game.computerPlayer.getXCoordinates(
-      game.humanGameboard.allCoordinates
-    );
+    let guessedCoordinates;
 
-    const randomXCoordinate =
-      xCoordinates[Math.floor(Math.random() * xCoordinates.length)];
+    if (IntelligentChoiceGenerator.hasNotHit()) {
+      guessedCoordinates = game.computerPlayer.getRandomCoordinateStillAvailable(
+        game.humanGameboard.allCoordinates
+      );
 
-    let randomCoordinates = game.computerPlayer.selectRandomCoordinatesStillAvailable(
-      game.humanGameboard.allCoordinates,
-      randomXCoordinate
-    );
-    // console.log("From computer Player Turn:");
-    // console.log(randomCoordinates);
+      game.computerPlayer.attack(game.humanGameboard, guessedCoordinates);
 
-    game.computerPlayer.attack(game.humanGameboard, randomCoordinates);
+      if (
+        game.humanGameboard.checkHit(guessedCoordinates.x, guessedCoordinates.y)
+      ) {
+        IntelligentChoiceGenerator.originalCorrectGuess = guessedCoordinates;
+        IntelligentChoiceGenerator.getAdjacentCoordinates(
+          guessedCoordinates,
+          game.humanGameboard
+        );
+      }
+    } else {
+      guessedCoordinates = IntelligentChoiceGenerator.makeSmartGuess();
+
+      game.computerPlayer.attack(game.humanGameboard, guessedCoordinates);
+
+      if (
+        game.humanGameboard.checkHit(guessedCoordinates.x, guessedCoordinates.y)
+      ) {
+        IntelligentChoiceGenerator.updateSmartGuessesIf(
+          "correct",
+          game.humanGameboard
+        );
+      } else {
+        IntelligentChoiceGenerator.updateSmartGuessesIf(
+          "incorrect",
+          game.humanGameboard
+        );
+      }
+    }
 
     Events.emit("updateTile", {
       board: game.humanGameboard,
-      coordinates: randomCoordinates,
+      coordinates: guessedCoordinates,
+    });
+
+    checkAndDisplaySunkShips({
+      fleet: game.humanFleet,
+      board: document.querySelector(".humanBoard"),
     });
   };
 

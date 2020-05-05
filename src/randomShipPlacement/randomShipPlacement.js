@@ -62,7 +62,6 @@ const RandomShipPlacement = (() => {
     } while (shipCoordinatesOccupied);
 
     gameboard.placeShip(ship, allShipCoordinates[0], randomOrientation);
-    console.log(allShipCoordinates);
   };
 
   return {
